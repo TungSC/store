@@ -2,11 +2,14 @@
   "name": "my-shop",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
+  "module": "commonjs",
   "scripts": {
-    "dev": "nodemon ./bin/www"
+    "dev": "nodemon bin/www.mjs"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
     "debug": "~2.6.9",
     "dotenv": "^16.0.0",
     "ejs": "~2.6.1",
