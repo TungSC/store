@@ -5,6 +5,7 @@ function onError(error) {
     throw error;
   }
 
+  const port = process.env.PORT
   const bind = typeof port === 'string'
     ? 'Pipe ' + port
     : 'Port ' + port;

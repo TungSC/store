@@ -12,9 +12,12 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 import index from "./routes/index.js";
+import "./sequelize/sequelize.js"
+
+//import onlineStoreApi from "./api/routes.js";
 
 class App {
-  constructor() {
+   constructor() {
     this.app = express()
     this.paths = {
       homepage: "/",
