@@ -1,4 +1,4 @@
-import { Sequelize } from "sequelize";
+import {Sequelize} from "sequelize";
 import ProductModel from "./schema/product.js"
 import ProductOptionModel from "./schema/product_option.js"
 
@@ -8,10 +8,10 @@ const Product = ProductModel(dbClient)
 const ProductOption = ProductOptionModel(dbClient)
 
 dbClient.sync().then(() => {
-  console.log(`Database & tables created!`)
+	console.log(`Database & tables created!`)
 })
 
 export default {
-  Product,
-  ProductOption
+	Product,
+	ProductOption
 }
