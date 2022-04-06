@@ -1,8 +1,9 @@
+import { Product } from "../../sequelize/sequelize.js"
+
 // GET
 async function GetProduct(req, res, next) {
 	const product = await Product.findOne({where: {id: req.params.id}})
 	res.json(product);
-	c
 }
 
 // GET

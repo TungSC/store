@@ -6,7 +6,7 @@
   "module": "commonjs",
   "scripts": {
     "prod": "node bin/www.mjs",
-    "dev": "kill -9 $(lsof -ti:3003) && nodemon bin/www.mjs"
+    "dev": "kill -9 $(lsof -ti:3003) & nodemon bin/www.mjs"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",

@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+import { config } from 'dotenv';
+config()
 
 function onError(error) {
 	if (error.syscall !== 'listen') {
@@ -24,10 +26,6 @@ function onError(error) {
 			throw error;
 	}
 }
-
-import dotenv from 'dotenv';
-
-dotenv.config()
 
 import http from 'http';
 import App from '../app.js';

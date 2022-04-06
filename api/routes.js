@@ -1,13 +1,18 @@
+import { GetProduct, FindProducts } from "./product/usecase.js"
+
 const onlineStoreApi = [{
-	method: 'POST',
-	path: "/product",
-	auth: true,
-	module: productsResolver,
-}, {
-	method: 'POST',
-	path: "/product/:id",
-	auth: true,
-	module: productResolver,
-}, {}]
+	path: "/products",
+	children: [{
+		method: 'get',
+		path: "/",
+		auth: true,
+		module: FindProducts,
+	},{
+		method: 'get',
+		path: "/:id",
+		auth: true,
+		module: GetProduct,
+	}]
+}]
 
 export default onlineStoreApi

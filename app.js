@@ -5,14 +5,16 @@ import cors from "cors";
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 
-import {fileURLToPath} from 'url';
-import {dirname} from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 import index from "./routes/index.js";
-import "./sequelize/sequelize.js"
+//import "./sequelize/sequelize.js"
+
+import onlineStoreApi from "./api/routes.js"
 
 //import onlineStoreApi from "./api/routes.js";
 
@@ -26,6 +28,7 @@ class App {
 		this.middlewares();
 		this.routes();
 		this.initModule();
+
 	}
 
 	initModule() {
@@ -49,7 +52,7 @@ class App {
 	// Bind controllers to routes
 	routes() {
 		this.app.use(this.paths.homepage, index);
-		//this.app.use(this.paths.homepage, require("./routes/users"));
+		this.registerApi();
 	}
 
 	errorHandler(err, req, res, next) {
@@ -62,6 +65,21 @@ class App {
 
 	listen() {
 		console.log("Server running on port: ", process.env.PORT);
+	}
+
+	registerApi() {
+		//let router = express.Router();
+		onlineStoreApi.forEach((value) => {
+			// this is to group child router
+			if(value?.children) {
+				value.children.forEach((child) => {
+					this.app[child.method](value.path + child.path, child.module)
+				})
+			}
+
+			// if parent having module, we still set module for parent
+			value.module && this.app[value.method](value.path, value.module)
+		})
 	}
 }
 
