@@ -13,7 +13,7 @@ const __dirname = dirname(__filename);
 
 import index from "./routes/index.js";
 
-import OnlineStoreAPI from "./api/routes.js"
+import OnlineStoreAPI from "./modules/routes.js"
 
 class App {
 	constructor() {
@@ -57,7 +57,7 @@ class App {
 			next();
 		})
 
-		// register online store api
+		// register online store modules
 		new OnlineStoreAPI().RegisterAPI(this.app);
 
 		this.app.use(this.paths.homepage, index);
