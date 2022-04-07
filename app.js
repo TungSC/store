@@ -12,11 +12,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 import index from "./routes/index.js";
-//import "./sequelize/sequelize.js"
 
-import onlineStoreApi from "./api/routes.js"
-
-//import onlineStoreApi from "./api/routes.js";
+import OnlineStoreAPI from "./api/routes.js"
 
 class App {
 	constructor() {
@@ -51,8 +48,19 @@ class App {
 
 	// Bind controllers to routes
 	routes() {
+		// remove last slash and redirect to url without lash slash
+		this.app.use((req, res, next) => {
+			if(req.url.length > 1 && req.url.endsWith("/")) {
+				return res.status(301).redirect(req.url.slice(0, -1))
+			}
+
+			next();
+		})
+
+		// register online store api
+		new OnlineStoreAPI().RegisterAPI(this.app);
+
 		this.app.use(this.paths.homepage, index);
-		this.registerApi();
 	}
 
 	errorHandler(err, req, res, next) {
@@ -65,21 +73,6 @@ class App {
 
 	listen() {
 		console.log("Server running on port: ", process.env.PORT);
-	}
-
-	registerApi() {
-		//let router = express.Router();
-		onlineStoreApi.forEach((value) => {
-			// this is to group child router
-			if(value?.children) {
-				value.children.forEach((child) => {
-					this.app[child.method](value.path + child.path, child.module)
-				})
-			}
-
-			// if parent having module, we still set module for parent
-			value.module && this.app[value.method](value.path, value.module)
-		})
 	}
 }
 

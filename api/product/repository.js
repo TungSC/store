@@ -1,20 +1,18 @@
-import { Product } from "../../sequelize/sequelize.js"
+import {Product} from "../../sequelize/sequelize.js"
 
 // GET
-async function GetProduct(req, res, next) {
-	const product = await Product.findOne({where: {id: req.params.id}})
-	res.json(product);
+async function GetProduct(id) {
+	return Product.findOne({where: {id: id}})
 }
 
 // GET
-async function FindProducts(req, res) {
-	const products = await Product.findAll()
+async function FindProducts() {
+	return Product.findAll()
 }
 
 //POST
-async function CreateProduct(req, res) {
-	const tung = await Product.create({title: "product"})
-	console.log(tung)
+async function CreateProduct(data) {
+	return Product.create(data)
 }
 
 //POST
@@ -22,8 +20,9 @@ async function UpdateProduct(req, res) {
 
 }
 
-export {
+const repository =  {
 	GetProduct,
 	FindProducts,
 	CreateProduct
-}
+};
+export default repository

@@ -1,28 +1,40 @@
+import repository from "./repository.js"
+
 // GET
-async function GetProduct(req, res, next) {
-	const product = await Product.findOne({where: {id: req.params.id}})
+async function GetByID(req, res, next) {
+	let id = req.params.id
+	if (isNaN(Number(id))) {
+		return res.end("sai cde roi anh")
+	}
+
+	const product = await repository.GetProduct(id)
+
 	res.json(product);
-	c
 }
 
 // GET
-async function FindProducts(req, res) {
-	const products = await Product.findAll()
+async function Find(req, res) {
+	const products = await repository.FindProducts()
+
+	res.json(products)
 }
 
 //POST
-async function CreateProduct(req, res) {
-	const tung = await Product.create({title: "product"})
-	console.log(tung)
+async function Create(req, res) {
+	const product = repository.CreateProduct({title: "tung"})
+
+	res.json(product)
 }
 
 //POST
-async function UpdateProduct(req, res) {
+async function Update(req, res) {
 
 }
 
-export {
-	GetProduct,
-	FindProducts,
-	CreateProduct
-}
+let Product = {
+	GetByID,
+	Find,
+	Create,
+	Update
+};
+export default Product
