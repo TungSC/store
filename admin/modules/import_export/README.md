@@ -1,0 +1,1 @@
+- This module to manage import and export product, this module will auto manage scale buy per product and variant, views and notify to admin how many product need to import
