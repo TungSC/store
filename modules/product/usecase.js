@@ -7,21 +7,21 @@ async function GetByID(req, res, next) {
 		return res.end("sai cde roi anh")
 	}
 
-	const product = await repository.GetProduct(id)
+	const product = await repository.Get(id)
 
 	res.json(product);
 }
 
 // GET
 async function Find(req, res) {
-	const products = await repository.FindProducts()
+	const products = await repository.Find()
 
 	res.json(products)
 }
 
 //POST
 async function Create(req, res) {
-	const product = repository.CreateProduct({title: "tung"})
+	const product = repository.Create({title: "tung"})
 
 	res.json(product)
 }

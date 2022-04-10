@@ -1,28 +1,28 @@
 import {Product} from "../../sequelize/sequelize.js"
 
 // GET
-async function GetProduct(id) {
+async function Get(id) {
 	return Product.findOne({where: {id: id}})
 }
 
 // GET
-async function FindProducts() {
+async function Find() {
 	return Product.findAll()
 }
 
 //POST
-async function CreateProduct(data) {
+async function Create(data) {
 	return Product.create(data)
 }
 
 //POST
-async function UpdateProduct(req, res) {
+async function Update(req, res) {
 
 }
 
 const repository =  {
-	GetProduct,
-	FindProducts,
-	CreateProduct
+	Get,
+	Find,
+	Create
 };
 export default repository
