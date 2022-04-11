@@ -11,7 +11,6 @@ export default (sequelize) => {
 			type: DataTypes.STRING,
 			allowNull: false
 		},
-		feature_image_id: DataTypes.INTEGER,
 		handle: {
 			type: DataTypes.STRING,
 			allowNull: false
