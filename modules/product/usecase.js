@@ -1,40 +1,40 @@
 import repository from "./repository.js"
 
 // GET
-async function GetByID(req, res, next) {
-	let id = req.params.id
-	if (isNaN(Number(id))) {
-		return res.end("sai cde roi anh")
+function GetByID(productID) {
+	if (isNaN(Number(productID))) {
+		return null
 	}
 
-	const product = await repository.Get(id)
-
-	res.json(product);
+	return repository.Get(productID)
 }
 
 // GET
-async function Find(req, res) {
-	const products = await repository.Find()
-
-	res.json(products)
+function Find(req, res) {
+	return repository.Find()
 }
 
 //POST
-async function Create(req, res) {
-	const product = repository.Create({title: "tung"})
-
-	res.json(product)
+function Create(body) {
+	let data = {
+		title: body?.title,
+		description: body?.description,
+		is_published: body?.is_published,
+		sku: body?.sku,
+		handle: body?.handle
+	}
+	return repository.Create(data)
 }
 
 //POST
-async function Update(req, res) {
+function Update(req, res) {
 
 }
 
-let Product = {
+let Usecase = {
 	GetByID,
 	Find,
 	Create,
 	Update
 };
-export default Product
+export default Usecase

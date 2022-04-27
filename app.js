@@ -18,21 +18,12 @@ import OnlineStoreAPI from "./modules/routes.js"
 class App {
 	constructor() {
 		this.app = express()
-		this.paths = {
-			homepage: "/",
-		}
-
+		this.initModule();
 		this.middlewares();
 		this.routes();
-		this.initModule();
-
 	}
 
 	initModule() {
-		this.app.use(function (req, res, next) {
-			next(createError(404));
-		});
-		this.app.use(this.errorHandler)
 		this.app.set('views', path.join(__dirname, 'views'));
 		this.app.set('view engine', 'ejs');
 		this.app.use(logger('dev'));
@@ -48,6 +39,10 @@ class App {
 
 	// Bind controllers to routes
 	routes() {
+		this.paths = {
+			homepage: "/",
+		}
+
 		// remove last slash and redirect to url without lash slash
 		this.app.use((req, res, next) => {
 			if(req.url.length > 1 && req.url.endsWith("/")) {
@@ -61,6 +56,10 @@ class App {
 		new OnlineStoreAPI().RegisterAPI(this.app);
 
 		this.app.use(this.paths.homepage, index);
+		this.app.use(this.errorHandler)
+		this.app.use(function (req, res, next) {
+			next(createError(404));
+		});
 	}
 
 	errorHandler(err, req, res, next) {

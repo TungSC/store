@@ -11,7 +11,14 @@ import MediaModel from "./schema/media.js"
 
 config()
 const env = process.env
-const dbClient = new Sequelize(`postgres://${env.DB_USERNAME}:${env.DB_PASSWORD}@${env.DB_HOST}:${env.DB_PORT}/${env.DB_NAME}`)
+const isProduct = () => {
+	return env.MODE === "dev";
+}
+
+const dbClient = new Sequelize(`postgres://${env.DB_USERNAME}:${env.DB_PASSWORD}@${env.DB_HOST}:${env.DB_PORT}/${env.DB_NAME}`,
+	{
+		logging: isProduct()
+	})
 
 // call model
 const Product = ProductModel(dbClient)
@@ -25,24 +32,33 @@ const Media = MediaModel(dbClient)
 Product.hasMany(ProductVariant, {
 	foreignKey: "product_id"
 });
+
 Product.hasMany(ProductOption, {
 	foreignKey: "product_id"
 });
+
+Product.hasMany(Media,{foreignKey: 'product_id', constraints: false, allowNull: true, defaultValue: null });
+
 ProductOption.hasOne(ProductOptionValue, {
 	foreignKey: "option_id"
-})
+});
+
 ProductOption.hasOne(VariantProductOption, {
 	foreignKey: "option_id"
-})
+});
+
 ProductVariant.hasOne(VariantProductOption, {
 	foreignKey: "variant_id"
-})
+});
+
 ProductOptionValue.hasOne(VariantProductOption, {
 	foreignKey: "option_value_id"
-})
+});
+
 Media.hasOne(Product, {
 	foreignKey: "feature_image_id"
 });
+
 Media.hasOne(ProductVariant, {
 	foreignKey: "media_id"
 });

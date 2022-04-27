@@ -1,4 +1,5 @@
-import Product from "./product/usecase.js"
+import Product from "./product/delivery.js"
+
 
 class OnlineStoreAPI {
 	routes = [{
@@ -8,12 +9,12 @@ class OnlineStoreAPI {
 				method: 'get',
 				path: '/',
 				auth: true,
-				module: Product.Find,
+				module: Product.GetProducts
 			}, {
 				method: 'get',
 				path: '/:id',
 				auth: true,
-				module: Product.GetByID,
+				module: Product.GetProduct
 			}, {
 				method: 'post',
 				path: '/',

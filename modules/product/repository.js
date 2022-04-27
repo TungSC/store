@@ -1,8 +1,11 @@
-import {Product} from "../../sequelize/sequelize.js"
+import {Product, ProductVariant} from "../../sequelize/sequelize.js"
 
 // GET
 async function Get(id) {
-	return Product.findOne({where: {id: id}})
+	return Product.findOne({
+		where: {id: id},
+		include: ProductVariant
+	})
 }
 
 // GET
